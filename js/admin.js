@@ -1,0 +1,66 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Get admin code from session storage
+    const adminCode = sessionStorage.getItem('adminCode') || 'ADMIN001';
+    
+    // Mock admin data (in a real app, this would come from a database)
+    const adminData = {
+        'ADMIN001': { name: 'Admin User' },
+        'ADMIN002': { name: 'Super Admin' }
+    };
+
+    // Set admin name
+    document.getElementById('admin-name').textContent = adminData[adminCode]?.name || 'Admin';
+
+    // Toggle sidebar
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+        document.querySelector('.dashboard-container').classList.toggle('sidebar-collapsed');
+    });
+
+    // Action buttons functionality
+    const actionButtons = document.querySelectorAll('.action-btn');
+    
+    actionButtons.forEach(button => {
+        if (!button.disabled) {
+            button.addEventListener('click', function() {
+                const action = this.querySelector('i').className;
+                const row = this.closest('tr');
+                const employee = row.cells[0].textContent;
+                const week = row.cells[1].textContent;
+                
+                if (action.includes('fa-eye')) {
+                    // View timesheet details
+                    alert(`Viewing timesheet details for ${employee} (${week})`);
+                } else if (action.includes('fa-check')) {
+                    // Approve timesheet
+                    row.querySelector('.status').className = 'status approved';
+                    row.querySelector('.status').textContent = 'Approved';
+                    
+                    // Disable approve and reject buttons
+                    row.querySelectorAll('.action-btn:not(:first-child)').forEach(btn => {
+                        btn.disabled = true;
+                    });
+                    
+                    alert(`Timesheet for ${employee} (${week}) has been approved`);
+                } else if (action.includes('fa-times')) {
+                    // Reject timesheet
+                    row.querySelector('.status').className = 'status rejected';
+                    row.querySelector('.status').textContent = 'Rejected';
+                    
+                    // Disable reject button, keep approve button active
+                    row.querySelector('.action-btn:last-child').disabled = true;
+                    
+                    alert(`Timesheet for ${employee} (${week}) has been rejected`);
+                }
+            });
+        }
+    });
+
+    // In a real application, you would have more functionality here:
+    // - Fetching real data from a backend API
+    // - Pagination for tables
+    // - Filtering and sorting
+    // - Charts and graphs for analytics
+    // - User management
+    // - Project management
+    // - etc.
+});
