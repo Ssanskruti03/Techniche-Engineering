@@ -83,7 +83,7 @@
 }
 
 .view-all {
-    color: #3498db;
+    color: #0b6bab;
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
@@ -161,44 +161,7 @@
     cursor: not-allowed;
 }
 
-/* Project Bars */
-.project-bars {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
 
-.project-bar {
-    width: 100%;
-}
-
-.project-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
-
-.project-name {
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.project-hours {
-    color: #7f8c8d;
-}
-
-.progress-bar {
-    height: 10px;
-    background-color: #ecf0f1;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.progress {
-    height: 100%;
-    background-color: #3498db;
-    border-radius: 5px;
-}
 
 /* Responsive Styles */
 @media (max-width: 992px) {
@@ -211,4 +174,38 @@
     .dashboard-cards {
         grid-template-columns: 1fr;
     }
+}
+User-Management {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#user-management {
+    padding: 5px;
+    font-size: 17px;
+    width: 100%;
+    max-width: 300px;
+    background-color: #2c3e50;
+    color:#fff;
+    border: none;
+}
+
+/* Download Button Styles */
+
+
+.download-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.download-btn i {
+    margin-right: 8px;
 }
