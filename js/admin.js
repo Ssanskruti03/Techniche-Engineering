@@ -55,6 +55,62 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+// Download Dashboard Report as Excel
+function downloadExcel() {
+    const reportContent = `
+        Employee Timesheet Dashboard Report
+        Generated: ${new Date().toLocaleString()}
+        
+        Summary:
+        - Total Employees: 24
+        - Active Projects: 8
+        - Approved Timesheets: 18
+        
+        Recent Timesheets:
+        - Keshav Mane: 40 hours (Pending)
+        - John Doe: 38 hours (Approved)
+        - Jane Smith: 42 hours (Rejected)
+    `;
+    
+    const blob = new Blob([reportContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'dashboard_report.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+
+// Download Dashboard Report as PDF
+function downloadPDF() {
+    const reportContent = `
+        Employee Timesheet Dashboard Report
+        Generated: ${new Date().toLocaleString()}
+        
+        Summary:
+        - Total Employees: 24
+        - Active Projects: 8
+        - Approved Timesheets: 18
+        
+        Recent Timesheets:
+        - Keshav Mane: 40 hours (Pending)
+        - John Doe: 38 hours (Approved)
+        - Jane Smith: 42 hours (Rejected)
+    `;
+    
+    const blob = new Blob([reportContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'dashboard_report.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+}
+
     // In a real application, you would have more functionality here:
     // - Fetching real data from a backend API
     // - Pagination for tables
