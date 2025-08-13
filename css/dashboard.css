@@ -399,3 +399,33 @@ input[readonly] {
 .sidebar-collapsed .main-content {
     margin-left: 70px;
 }
+/* Add this section to dashboard.css, after the input styles */
+input[type="text"],
+input[type="date"],
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #f8f9fa; /* To match readonly input look */
+    width: 100%; /* Makes all fields fill the available space equally */
+    box-sizing: border-box;
+}
+
+select:disabled, select[readonly] {
+    background-color: #f8f9fa;
+    color: #555;
+}
+/* Add to dashboardd.css */
+.shift-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+.shift-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
