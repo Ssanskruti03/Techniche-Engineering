@@ -4,18 +4,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mock employee data (in a real app, this would come from a database)
     const employeeData = {
-        'EMP001': { name: 'Keshav Mane', designation: 'Jr IT Support Engineer' },
-        'EMP002': { name: 'John Doe', designation: 'Senior Developer' },
-        'EMP003': { name: 'Jane Smith', designation: 'Project Manager' },
-        'ADMIN001': { name: 'Admin User', designation: 'System Administrator' }
+        'EMP001': { name: 'Keshav Mane', position: 'Jr IT Support Engineer' },
+        'EMP002': { name: 'John Doe', position: 'Senior Developer' },
+        'EMP003': { name: 'Jane Smith', position: 'Project Manager' },
+        'ADMIN001': { name: 'Admin User', position: 'System Administrator' }
     };
 
     // Set employee information
     document.getElementById('employee-code').value = employeeCode;
     document.getElementById('employee-name').textContent = employeeData[employeeCode]?.name || 'Unknown Employee';
     document.getElementById('employee-name-input').value = employeeData[employeeCode]?.name || 'Unknown Employee';
-    document.getElementById('designation').value = employeeData[employeeCode]?.designation || 'Unknown Designation';
+    // Map full position to select value
+function mapPositionToSelectValue(position) {
+    if (!position) return 'Select';
+    if (position.toLowerCase().includes('junior')) return 'Junior';
+    if (position.toLowerCase().includes('senior')) return 'Senior';
+    if (position.toLowerCase().includes('manager')) return 'Manager';
+    return 'Select'; // default
+}
 
+document.getElementById('position').value = mapPositionToSelectValue(employeeData[employeeCode]?.position);
     // Set default dates for the current week
     setDefaultWeekDates();
 
@@ -32,11 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
         addTimesheetRow();
     });
 
-    // Download as Excel button
-    document.getElementById('download-excel-btn').addEventListener('click', function() {
-        alert('Excel download functionality would be implemented here.');
-        // In a real implementation, this would generate and download an Excel file
-    });
 
     // Hours modal functionality
     const hoursModal = document.getElementById('hours-modal');
@@ -57,36 +60,64 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Handle hours form submission
-    hoursForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (!currentCell) return;
-        
-        const normalHours = parseFloat(document.getElementById('work-hours').value) || 0;
-        const overtimeHours = parseFloat(document.getElementById('overtime-hours').value) || 0;
-        const activityCode = document.getElementById('activity-code').value;
-        
-        if ((normalHours === 0 && overtimeHours === 0) || !activityCode) {
-            alert('Please enter hours and activity code');
-            return;
-        }
-        
-        // Update the cell with the hours values
-        currentCell.innerHTML = `<span class="normal-hours">${normalHours}</span>/<span class="overtime-hours">${overtimeHours}</span>`;
-        currentCell.setAttribute('data-normal-hours', normalHours);
-        currentCell.setAttribute('data-overtime-hours', overtimeHours);
-        currentCell.setAttribute('data-activity-code', activityCode);
-        currentCell.classList.add('has-hours');
-        
-        // Update totals
-        updateTotals();
-        updateRowTotal(currentCell.parentElement);
-        
-        // Close the modal
-        hoursModal.style.display = 'none';
-    });
+    // Updated form submission handler in dashboardd.js
+    // Update the hoursForm submit event handler
+hoursForm.addEventListener('submit', function(e) {
+    e.preventDefault();
     
+    if (!currentCell) return;
+    
+    const hours = parseFloat(document.getElementById('work-hours').value) || 0;
+    const activityCode = document.getElementById('activity-code').value;
+    const shiftType = document.querySelector('input[name="shift-type"]:checked').value;
+    
+    if (hours === 0 || !activityCode) {
+        alert('Please enter hours and select activity code');
+        return;
+    }
+    
+    // OR Gate Condition: Determine hours type based on shift selection
+    const normalHours = shiftType === 'normal' ? hours : 0;
+    const overtimeHours = shiftType === 'overtime' ? hours : 0;
+    
+    // Update the cell
+    currentCell.innerHTML = `<span class="normal-hours">${normalHours}</span>/<span class="overtime-hours">${overtimeHours}</span>`;
+    currentCell.setAttribute('data-normal-hours', normalHours);
+    currentCell.setAttribute('data-overtime-hours', overtimeHours);
+    currentCell.setAttribute('data-activity-code', activityCode);
+    currentCell.classList.add('has-hours');
+    
+    // Update totals
+    updateTotals();
+    updateRowTotal(currentCell.parentElement);
+    
+    // Close the modal
+    hoursModal.style.display = 'none';
+});
+
+// Update the openHoursModal function
+function openHoursModal(cell) {
+    currentCell = cell;
+    
+    // Reset form with shift selection
+    document.getElementById('work-hours').value = 
+        parseFloat(cell.getAttribute('data-normal-hours') || 0) + 
+        parseFloat(cell.getAttribute('data-overtime-hours') || 0) || '0';
+        
+    document.getElementById('activity-code').value = 
+        cell.getAttribute('data-activity-code') || '';
+    
+    // Set shift type based on existing data
+    const shiftRadios = document.getElementsByName('shift-type');
+    if (parseFloat(cell.getAttribute('data-overtime-hours') || 0) > 0) {
+        shiftRadios[1].checked = true; // Overtime
+    } else {
+        shiftRadios[0].checked = true; // Normal
+    }
+    
+    // Show modal
+    hoursModal.style.display = 'block';
+}    
     // Handle delete row functionality
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('delete-row-btn')) {
@@ -205,7 +236,9 @@ document.addEventListener('DOMContentLoaded', function() {
         row.appendChild(actionCell);
         
         timesheetBody.appendChild(row);
-    }
+        updateRowTotal(row);
+        updateRowNumbers();
+    }  
 
     // Function to open hours modal
     function openHoursModal(cell) {
