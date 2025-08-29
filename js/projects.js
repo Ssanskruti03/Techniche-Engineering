@@ -39,10 +39,15 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProjects();
     updateOverviewCards();
     
-    // Form submission handler
+    // Form submission handler - handles both add and edit
     document.getElementById('addProjectForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        addProject();
+        const editId = this.dataset.editId;
+        if (editId) {
+            updateProject(parseInt(editId));
+        } else {
+            addProject();
+        }
     });
     
     // Search and filter handlers
@@ -66,6 +71,7 @@ window.onclick = function(event) {
 
 // Load and display projects
 function loadProjects() {
+    console.log('Loading projects:', projects); // Log the projects array
     const grid = document.getElementById('projectsGrid');
     grid.innerHTML = '';
     
@@ -189,15 +195,15 @@ function editProject(id) {
         document.getElementById('seniorCompleted').value = project.seniorCompleted;
         document.getElementById('projectStatus').value = project.status;
         
+        // Change modal title and button text
+        document.querySelector('#addProjectModal .modal-header h2').textContent = 'Edit Project';
+        document.querySelector('#addProjectModal .btn-primary').textContent = 'Save Changes';
+        
+        // Store project ID as data attribute
+        document.getElementById('addProjectForm').dataset.editId = id;
+        
         // Show modal
         toggleAddProjectModal();
-        
-        // Change form submission to update instead of add
-        const form = document.getElementById('addProjectForm');
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            updateProject(id);
-        };
     }
 }
 
@@ -208,28 +214,34 @@ function updateProject(id) {
     
     const projectIndex = projects.findIndex(p => p.id === id);
     if (projectIndex !== -1) {
-        projects[projectIndex].name = formData.get('projectName');
-        projects[projectIndex].totalHours = parseInt(formData.get('totalHours'));
-        projects[projectIndex].juniorHours = parseInt(formData.get('juniorHours')) || 0;
-        projects[projectIndex].juniorCompleted = parseInt(formData.get('juniorCompleted')) || 0;
-        projects[projectIndex].seniorHours = parseInt(formData.get('seniorHours')) || 0;
-        projects[projectIndex].seniorCompleted = parseInt(formData.get('seniorCompleted')) || 0;
-        projects[projectIndex].status = formData.get('projectStatus') || 'active';
+        // Store the updated values
+        const updatedProject = {
+            id: id, // Keep the same ID
+            name: formData.get('projectName'),
+            totalHours: parseInt(formData.get('totalHours')),
+            juniorHours: parseInt(formData.get('juniorHours')) || 0,
+            juniorCompleted: parseInt(formData.get('juniorCompleted')) || 0,
+            seniorHours: parseInt(formData.get('seniorHours')) || 0,
+            seniorCompleted: parseInt(formData.get('seniorCompleted')) || 0,
+            status: formData.get('projectStatus') || 'active'
+        };
+        
+        // Replace the project in the array
+        projects[projectIndex] = updatedProject;
         
         loadProjects();
         updateOverviewCards();
-        renderHoursChart();
-        renderProgressChart();
         
         // Reset form and close modal
         form.reset();
         toggleAddProjectModal();
         
-        // Reset form submission to add
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            addProject();
-        };
+        // Reset modal title and button text
+        document.querySelector('#addProjectModal .modal-header h2').textContent = 'Add New Project';
+        document.querySelector('#addProjectModal .btn-primary').textContent = 'Add Project';
+        
+        // Clear edit mode
+        document.getElementById('addProjectForm').dataset.editId = '';
         
         showNotification('Project updated successfully!');
     }
