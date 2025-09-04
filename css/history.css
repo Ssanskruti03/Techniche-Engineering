@@ -1,0 +1,257 @@
+/* History Page Specific Styles */
+
+.history-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.history-section h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+}
+
+/* History Table Styles */
+.timesheet-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.timesheet-table th {
+    background-color: #3498db;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #2980b9;
+}
+
+.timesheet-table td {
+    padding: 10px 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.timesheet-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.timesheet-table tbody tr:hover {
+    background-color: #e3f2fd;
+    transition: background-color 0.2s ease;
+}
+
+/* Status Badge Styles */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
+}
+
+.status-approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-resubmitted {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+/* Table Responsive Styles */
+@media (max-width: 768px) {
+    .history-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .timesheet-table {
+        font-size: 14px;
+    }
+    
+    .timesheet-table th,
+    .timesheet-table td {
+        padding: 8px 10px;
+    }
+    
+    .status-badge {
+        font-size: 11px;
+        min-width: 50px;
+    }
+}
+
+/* Empty State Styles */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #7f8c8d;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #bdc3c7;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Filter Controls */
+.filter-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.filter-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+}
+
+.loading i {
+    font-size: 24px;
+    margin-bottom: 10px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-view {
+    background-color: #3498db;
+    color: #fff;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-view:hover {
+    background-color: #2980b9;
+}
+
+.btn-download {
+    background-color: #27ae60;
+    color: #fff;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-download:hover {
+    background-color: #219a52;
+}
+
+/* Scrollable Table Container */
+.table-container {
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+/* Date Formatting */
+.date-cell {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #555;
+}
+
+/* Project Code Styles */
+.project-code {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #2c3e50;
+    background-color: #ecf0f1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Employee Code Styles */
+.employee-code {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #3498db;
+    background-color: #e3f2fd;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Section Header with Count */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.count-badge {
+    background-color: #3498db;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
