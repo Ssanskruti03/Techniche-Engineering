@@ -1,0 +1,205 @@
+
+/* Hours Tracking specific styles */
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f6f8;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #34495e;
+}
+
+.sidebar-header .logo i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.sidebar-header .logo h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.sidebar-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu ul li {
+    border-bottom: 1px solid #34495e;
+}
+
+.sidebar-menu ul li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-menu ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar-menu ul li.active a,
+.sidebar-menu ul li a:hover {
+    background-color: #2980b9;
+}
+
+.sidebar-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #34495e;
+}
+
+.sidebar-footer a.logout-btn {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-footer a.logout-btn i {
+    margin-right: 10px;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-nav {
+    background-color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.top-nav .nav-left button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.top-nav .nav-left h2 {
+    margin: 0 0 0 15px;
+    font-weight: 700;
+}
+
+.top-nav .nav-right .user-info {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.top-nav .nav-right .user-info i {
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+
+.projects-content {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    background-color: #fff;
+    flex-wrap: wrap;
+}
+
+.projects-header h1 {
+    margin: 0 0 20px 0;
+    font-weight: 700;
+    color: #34495e;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+.btn-primary {
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1c5980;
+}
+
+.results {
+    background-color: #fff9c4;
+    padding: 15px;
+    border-radius: 8px;
+    color: #2c3e50;
+    min-width: 300px;
+}
+
+.results b {
+    display: inline-block;
+    width: 130px;
+    font-weight: 700;
+}
+
+canvas#hoursChart {
+    max-width: 400px;
+    max-height: 400px;
+    margin: auto;
+    display: block;
+}
