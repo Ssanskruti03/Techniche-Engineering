@@ -361,6 +361,22 @@ btn-action.delete:hover {
     color: var(--text-primary);
 }
 
+/* HSE Banner Styles */
+.hse-banner {
+    background: none !important;
+    color: #111 !important;
+    padding: 0;
+    margin: 0;
+}
+
+.hse-banner h4 {
+    color: #111 !important;
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+    background: none !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .user-management-header {
