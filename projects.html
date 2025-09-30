@@ -49,8 +49,11 @@
             <!-- Top Navigation -->
             <div class="top-nav">
                 <div class="nav-left">
-                    <img src="Company Logo.png" alt="Company Logo" class="top-logo-img" />
-                </div>    
+                    <button id="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>Project Management</h2>
+                </div>
                 <div class="nav-right">
                     <div class="user-info">
                         <span id="admin-name">Admin</span>
@@ -61,16 +64,9 @@
 
             <!-- Projects Content -->
             <div class="projects-content">
-                <!-- Header Section -->
-                <div class="nav-left">
-                    <button id="toggle-sidebar">
-                     <i class="fas fa-bars"></i>
-                    </button>    
-                    <h1>Project Management</h1>
-                </div>    
+                <!-- Header Section -->    
                 <div class="projects-header">
                     <div class="header-content">
-                        <h3>Projects Overview</h3>
                         <p>Manage your projects efficiently and track progress.</p>
                     </div>
                     <button class="btn-add-project" onclick="toggleAddProjectModal()">
@@ -101,15 +97,6 @@
                                 <span>On Hold:</span>
                                 <span id="onHoldProjects">0</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="overview-card">
-                        <div class="card-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3 id="completedHours">0</h3>
-                            <p>Consumed Hours</p>
                         </div>
                     </div>
                 </div>
