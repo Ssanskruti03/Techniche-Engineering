@@ -224,6 +224,21 @@ function createProjectCard(project) {
                 <div class="progress-fill" style="width: ${seniorProgress}%"></div>
             </div>
         </div>
+        ${project.departments && project.departments.length > 0 ? project.departments.map(dept => {
+            const deptHours = project.departmentHours?.[dept] || 0;
+            const deptCompleted = project.departmentCompleted?.[dept] || 0;
+            const deptProgress = deptHours > 0 ? (deptCompleted / deptHours * 100).toFixed(1) : 0;
+            return `
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>${dept} Progress</span>
+                <span>${deptProgress}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: ${deptProgress}%"></div>
+            </div>
+        </div>`;
+        }).join('') : ''}
 
         <div class="project-actions">
             <button class="action-btn" onclick="showAssignedEmployees(${project.id})">
@@ -564,13 +579,11 @@ function updateOverviewCards() {
     const activeProjects = projects.filter(p => p.status === 'active').length;
     const completedProjects = projects.filter(p => p.status === 'completed').length;
     const onHoldProjects = projects.filter(p => p.status === 'on-hold').length;
-    const completedHours = projects.reduce((sum, p) => sum + p.juniorCompleted + p.seniorCompleted, 0);
 
     document.getElementById('totalProjects').textContent = totalProjects;
     document.getElementById('activeProjects').textContent = activeProjects;
     document.getElementById('completedProjects').textContent = completedProjects;
     document.getElementById('onHoldProjects').textContent = onHoldProjects;
-    document.getElementById('completedHours').textContent = completedHours;
 }
 
 // Delete project
